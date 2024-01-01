@@ -4,50 +4,73 @@
 
 $this->title = 'My Yii Application';
 ?>
-<div class="site-index">
+<div class="col-md-8">
 
-    <div class="jumbotron text-center bg-transparent mt-5 mb-5">
-        <h1 class="display-4">Congratulations!</h1>
+<article class="post">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+    <div class="post-thumb">
 
-        <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+        <a href=""><img class="img-index" src="" alt="Image"></a>
+
     </div>
 
-    <div class="body-content">
+    <div class="post-content">
 
-        <div class="row">
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
+        <header class="entry-header text-center text-uppercase">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+            <h6><a href=""> Travel</a></h6>
 
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+            <h1 class="entry-title"><a href=""> Home is peaceful place </a></h1>
+
+        </header>
+
+        <div class="entry-content">
+
+            <p>
+
+                Text
+
+            </p>
+
+            <div class="btn-continue-reading text-center text-uppercase">
+
+                <a href="#" class="more-link">Continue Reading</a>
+
             </div>
-            <div class="col-lg-4 mb-3">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+        </div>
 
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
+        <div class="social-share">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+            <span class="social-share-title pull-left text-capitalize">By Stas On 20-02-12</span>
 
-                <p><a class="btn btn-outline-secondary" href="https://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+            <ul class="text-center pull-right">
+
+                <li><a class="s-facebook" href="#"><i class="fa fa-eye"></i></a></li>
+
+                10
+
+            </ul>
+
         </div>
 
     </div>
+
+</article>
+
+<ul class="pagination">
+
+    <li class="active"><a href="#">1</a></li>
+
+    <li><a href="#">2</a></li>
+
+    <li><a href="#">3</a></li>
+
+</ul>
+
 </div>
+<?php
+
+echo \Yii::$app->view->renderFile('@app/views/site/right.php');
+
+?>
