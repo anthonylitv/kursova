@@ -1,68 +1,47 @@
 <?php
 
+use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\widgets\LinkPager;
 
 /** @var yii\web\View $this */
+/** @var app\models\Article[] $articles */
+/** @var yii\data\Pagination $pagination */
 
-$this->title = 'My Yii Application';
+$this->title = 'Travel';
 ?>
+
 <div class="col-md-8">
-
-<?php foreach ($articles as $article): ?>
-    <article class="post">
-
-
-    <div class="post-thumb">
-
-    <a href="<?= Url::toRoute(['/view', 'id'=>$article->id]) ?>"><img class="img-index" src="<?= $article->getImage() ?> " alt="Image"></a>
-
-    </div>
-
-    <div class="post-content">
-
-        <header class="entry-header text-center text-uppercase">
-
-            <h6><a href="<?= Url::toRoute(['/topic', 'id' => $article->topic->id]) ?>"> <?= $article->topic->name; ?></a></h6>
-
-            <h1 class="entry-title"><a href="<?= Url::toRoute(['/view', 'id'=>$article->id]) ?>"> <?= $article->title; ?> </a></h1>
-
-        </header>
-
-        <div class="entry-content">
-
-        <p> <?= mb_strimwidth($article->description,0, 360, "..."); ?> </p>
-
-            <div class="btn-continue-reading text-center text-uppercase">
-
-            <a href="<?= Url::toRoute(['/view', 'id'=>$article->id]) ?>" class="more-link">Continue Reading</a>
-
+    <?php foreach ($articles as $article): ?>
+        <article class="post post-modern">
+            <div class="post-thumb">
+                <a href="<?= Url::to(['/view', 'id' => $article->id]) ?>">
+                    <?= Html::img($article->getImage(), ['alt' => 'Image', 'class' => 'img-fluid']) ?>
+                </a>
             </div>
 
-        </div>
+            <div class="post-info">
+                <h6 class="post-topic">
+                    <?= Html::a($article->topic->name, ['/topic', 'id' => $article->topic->id], ['class' => 'topic-link']) ?>
+                </h6>
+                <h2 class="entry-title">
+                    <?= Html::a($article->title, ['/view', 'id' => $article->id], ['class' => 'post-title-link']) ?>
+                </h2>
+                <div class="post-meta">
+                    <span class="author">By <?= Html::encode($article->user->name) ?></span> |
+                    <span class="date">On <?= Html::encode($article->getDate()) ?></span> |
+                    <span class="views"><i class="fa fa-eye"></i> <?= (int) $article->viewed ?></span>
+                </div>
+            </div>
 
-        <div class="social-share">
+            <div class="post-excerpt">
+                <p><?= Html::encode(mb_strimwidth($article->description, 0, 360, "...")) ?></p>
+                <?= Html::a('Continue Reading', ['/view', 'id' => $article->id], ['class' => 'btn btn-primary']) ?>
+            </div>
+        </article>
+    <?php endforeach; ?>
 
-            <span class="social-share-title pull-left text-capitalize">By <?= $article->user->name;?> On <?= $article->getDate();?></span>
-
-            <ul class="text-center pull-right">
-
-                <li><a class="s-facebook" href="#"><i class="fa fa-eye"></i></a></li>
-
-                <?= (int)$article->viewed; ?>
-
-            </ul>
-
-        </div>
-
-    </div>
-
-</article>
-<?php endforeach; 
-echo \yii\widgets\LinkPager::widget([
-        "pagination" => $pagination,
-    ])
-?>
-
-
+    <?= LinkPager::widget(["pagination" => $pagination]) ?>
 </div>
-<?php echo \Yii::$app->view->renderFile('@app/views/site/right.php', compact('popular','recent','topics'));?>
+
+<?= $this->render('@app/views/site/right.php', compact('popular', 'recent', 'topics')) ?>
