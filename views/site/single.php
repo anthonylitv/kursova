@@ -9,7 +9,7 @@ use yii\helpers\Url;
 
         <div class="post-thumb">
 
-            <a href="blog.html"><img src="<?= $article->getImage() ?>" alt=" image"></a>
+            <a href="#"><img src="<?= $article->getImage() ?>" alt=" image"></a>
 
         </div>
 
@@ -23,7 +23,7 @@ use yii\helpers\Url;
 
                 </h6>
 
-                <h1 class="entry-title"><a href="# <a href="blog.html"><?= $article->title; ?></a> "><?= $article->title; ?></a></h1>
+                <h1 class="entry-title"><a href="#"><?= $article->title; ?></a></a></h1>
 
             </header>
 
@@ -53,7 +53,7 @@ class="btn btn-default"><?= $tag ?></a>
 
                     <li><a class="s-facebook"
 
-                           href="https://www.facebook.com/sharer/sharer.php?u=<?= Url::base('http'); ?>"><i
+                           href="https://www.facebook.com/?locale=uk_UA"><i
 
                                 class="fa fa-facebook"></i></a></li>
 

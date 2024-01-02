@@ -14,7 +14,7 @@ $this->title = 'My Yii Application';
 
     <div class="post-thumb">
 
-    <a href="<?= Url::toRoute(['/topic', 'id' => $article->topic->id]) ?>"><img class="img-index" src="<?= $article->getImage() ?> " alt="Image"></a>
+    <a href="<?= Url::toRoute(['/view', 'id'=>$article->id]) ?>"><img class="img-index" src="<?= $article->getImage() ?> " alt="Image"></a>
 
     </div>
 
@@ -24,7 +24,7 @@ $this->title = 'My Yii Application';
 
             <h6><a href="<?= Url::toRoute(['/topic', 'id' => $article->topic->id]) ?>"> <?= $article->topic->name; ?></a></h6>
 
-            <h1 class="entry-title"><a href=""> <?= $article->title; ?> </a></h1>
+            <h1 class="entry-title"><a href="<?= Url::toRoute(['/view', 'id'=>$article->id]) ?>"> <?= $article->title; ?> </a></h1>
 
         </header>
 
