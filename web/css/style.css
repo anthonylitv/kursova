@@ -68,7 +68,6 @@ input {
     font-size: 13px;
 }
 .pagination {
-    display: inline-block;
     padding-left: 0;
     margin: 0 0 50px;
     border-radius: 4px;
@@ -481,4 +480,22 @@ widget ul {
 
 .btn-serch:hover {
     background: #0b7dda;
+}
+/* CSS для активной кнопки пагинации */
+
+.pagination li.active a {
+    background-color: #007bff; /* Цвет фона для активной кнопки */
+    color: white; /* Цвет текста для активной кнопки */
+    border-color: #007bff; /* Цвет границы для активной кнопки */
+}
+
+.pagination li.active a:hover {
+    background-color: #0056b3; /* Цвет фона для активной кнопки при наведении */
+}
+
+.row {
+    margin-top: 30px;
+}
+.col-md-8 {
+    margin-top: 30px;
 }
