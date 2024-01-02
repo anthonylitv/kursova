@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic);
 body {
     font-family: 'Open Sans', sans-serif;
-    background: #F4F4F4;
+    background: #f4f4f4;
 }
 .main-content {
     margin-top: 50px;
@@ -52,12 +52,14 @@ a {
     margin-top: 0;
     font-size: 24px;
 }
-span, p, input {
+span,
+p,
+input {
     font-family: 'Merriweather', serif;
     line-height: 26px;
 }
 .post .social-share {
-    border-top: 1px solid #EEE;
+    border-top: 1px solid #eee;
     padding: 15px 0 75px;
 }
 .social-share-title {
@@ -96,12 +98,13 @@ span, p, input {
     border: 1px solid #e5e5e5;
     -webkit-transition: all 0.4s;
     transition: all 0.4s;
-    color: #C2C2C2;
+    color: #c2c2c2;
 }
 .social-share span a {
     color: #333;
 }
-.pagination > li > a, .pagination > li > span {
+.pagination > li > a,
+.pagination > li > span {
     position: relative;
     float: left;
     padding: 6px 12px;
@@ -116,109 +119,89 @@ span, p, input {
     font-weight: 600;
 }
 .widget {
-
     padding: 37px 30px;
-    
+
     margin-bottom: 35px;
-    
+
     background-color: #fff;
-    
+
     border: 1px solid #eee;
-    
-    }
-    
-    .widget-title {
-    
+}
+
+.widget-title {
     font-size: 18px;
-    
+
     margin: 0 0 25px;
-    
+
     letter-spacing: 0.5px;
-    
+
     color: #333333;
-    
-    }
-    
-    .widget .popular-post:first-of-type {
-    
+}
+
+.widget .popular-post:first-of-type {
     padding-top: 0;
-    
-    }
-    
-    .popular-post {
-    
+}
+
+.popular-post {
     border-bottom: 1px solid #eee;
-    
+
     padding: 25px 0 20px;
-    
-    }
-    
-    .popular-img {
-    
+}
+
+.popular-img {
     position: relative;
-    
+
     width: 100%;
-    
+
     margin-bottom: 15px;
-    
-    }
-    
-    .popular-img img {
-    
+}
+
+.popular-img img {
     width: 100%;
-    
-    }
-    
-    img {
-    
+}
+
+img {
     max-width: 100%;
-    
-    }
-    
-    .p-overlay {
-    
+}
+
+.p-overlay {
     position: absolute;
-    
+
     top: 0;
-    
+
     left: 0;
-    
+
     bottom: 0;
-    
+
     right: 0;
-    
+
     background: rgba(0, 0, 0, 0.5);
-    
+
     opacity: 0;
-    
+
     -webkit-transition: all 0.44s;
-    
+
     transition: all 0.44s;
-    
-    }
-    
-    .p-content a {
-    
+}
+
+.p-content a {
     font-size: 12px;
-    
+
     color: #333333;
-    
+
     text-decoration: none;
-    
+
     display: block;
-    
+
     font-weight: 600;
-    
+
     transition: all 0.44s;
-    
-    }
-    
-    .p-content span {
-    
+}
+
+.p-content span {
     color: #666666;
-    
+
     font-size: 12px;
-    
+
     font-style: italic;
-    
-    }
+}
