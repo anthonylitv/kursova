@@ -170,7 +170,8 @@ class SiteController extends Controller
         });
         
         $commentForm = new CommentForm();
-
+        $article->viewedCounter();
+        
         return $this->render('single', [
         
         'article' => $article,
@@ -186,6 +187,7 @@ class SiteController extends Controller
         'commentsChild' => $commentsChild,
 
         'commentForm' => $commentForm,
+        
         
         ]);
     }
