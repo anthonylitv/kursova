@@ -1,5 +1,6 @@
 <?php
-
+use yii\helpers\ArrayHelper;
+use app\models\Topic;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */

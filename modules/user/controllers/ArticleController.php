@@ -2,12 +2,13 @@
 
 namespace app\modules\user\controllers;
 use Yii;
+use yii\web\UploadedFile;
 use app\models\Article;
 use app\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\ImageUpload;
 /**
  * ArticleController implements the CRUD actions for Article model.
  */
@@ -74,7 +75,7 @@ $dataProvider = $searchModel->search($params);
         $model = new Article();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post()) && $model->saveArticle()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -97,7 +98,7 @@ $dataProvider = $searchModel->search($params);
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->saveArticle()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
         $this->check($id);

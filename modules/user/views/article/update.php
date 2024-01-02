@@ -1,6 +1,9 @@
 <?php
-
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+
+use app\models\Topic;
+use app\models\User;
 
 /** @var yii\web\View $this */
 /** @var app\models\Article $model */
