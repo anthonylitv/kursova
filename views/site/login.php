@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-
+        <?= Html::a('Register', ['/auth/signup'], ['class'=>'btn btn-success'])?>
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
                 'fieldConfig' => [
