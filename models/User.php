@@ -215,4 +215,9 @@ public function create()
     return $this->save(false);
 }
 
+public function getDate()
+{
+    return Yii::$app->formatter->asDate($this->date);
+}
+
 }

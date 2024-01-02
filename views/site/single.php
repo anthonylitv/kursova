@@ -79,7 +79,15 @@ class="btn btn-default"><?= $tag ?></a>
 
     </article>
 
-    <div class="leave-comment"><!--leave comment-->
+    <?php if (!Yii::$app->user->isGuest): ?>
+
+<?php $form = \yii\widgets\ActiveForm::begin([
+
+    'action' => ['site/comment', 'id' => $article->id],
+
+    'options' => ['class' => '', 'role' => 'form']]) ?>
+
+<div class="leave-comment"><!--leave comment-->
 
     <h4>Leave a reply</h4>
 
@@ -87,7 +95,10 @@ class="btn btn-default"><?= $tag ?></a>
 
         <div class="form-group">
 
-            <div class="col-md-12"> <textarea rows="3" cols="90" name="text"></textarea>
+            <div class="col-md-12">
+
+                <?= $form->field($commentForm, 'comment')->textarea(['class' => 'form-control', 
+'placeholder' => 'Write Message'])->label(false) ?>
 
             </div>
 
@@ -95,115 +106,67 @@ class="btn btn-default"><?= $tag ?></a>
 
         <button type="submit" class="btn send-btn">Post Comment</button>
 
+        <?php \yii\widgets\ActiveForm::end() ?>
+
     </form>
 
 </div><!--end leave comment-->
 
+<?php endif; ?>
+
+<?php if (!empty($commentsParent)): ?>
+
 <div class="comments-block">
 
-    <div class="comment-block">
+    <?php foreach ($commentsParent as $comment): ?>
 
-        <div class="comment">
+        <div class="comment-block">
 
-            <a href="#" class="comment-img">
+            <?php if (!$comment->delete): ?>
 
-                <img class="img-round" src="" alt="image">
+                <div class="comment">
 
-            </a>
+                    <a href="#" class="comment-img">
 
-            <div class="comment-body">
+                        <img class="img-round" src="<?= $comment->user->getImage(); ?>" alt="">
 
-                <div class="comment-top">
+                    </a>
 
-                    <button class="replay btn pull-right" onclick=""> Replay
+                    <div class="comment-body">
 
-                    </button>
+                        <div class="comment-top">
 
-                    <h5>Stas 2</h5>
+                            <?php if (!Yii::$app->user->isGuest): ?>
 
-                    <p class="comment-date">
+                                <button class="replay btn pull-right" onclick="ShowReplay(this)"> Replay
 
-                        20-09-06
+                                </button>
 
-                    </p>
+                            <?php endif; ?>
 
-                </div>
+                            <h5><?= $comment->user->name; ?></h5>
 
-                <div class="comment-text">
+                            <p class="comment-date">
 
-                    Text
+                                <?= $comment->getDate(); ?>
 
-                </div>
+                            </p>
 
-                <div class="comment-delete">
+                        </div>
 
-                    <button type="submit">
+                        <div class="comment-text">
 
-                        <i class="fa fa-trash"></i>
+                            <?= $comment->text; ?>
 
-                    </button>
+                        </div>
 
-                </div>
+                        <?php if ($comment->user_id == Yii::$app->user->id): ?>
 
-            </div>
+                            <?php $form = \yii\widgets\ActiveForm::begin([
 
-        </div>
+                                'action' => ['site/comment-delete', 'id' => $article->id, 'id_comment' => $comment->id],
 
-        <div class="replay-comment" hidden>
-
-            <div class="leave-comment-child"><!--leave comment-->
-
-                <h4>Leave a reply for Іефі</h4>
-
-                <div class="form-group">
-
-                    <div class="col-md-12">
-
-                    </div>
-
-                </div>
-
-                <button type="submit" class="btn send-btn">Post Comment</button>
-
-            </div><!--end leave comment-->
-
-        </div>
-
-        <div class="comment-childs-container">
-
-            <div class="comment-childs">
-
-                <div class="comment-block">
-
-                    <div class="comment">
-
-                        <a href="#" class="comment-img">
-
-                            <img class="img-round" src=""
-
-                                 alt="image">
-
-                        </a>
-
-                        <div class="comment-body">
-
-                            <div class="comment-top">
-
-                                <h5>Stas</h5>
-
-                                <p class="comment-date">
-
-                                    2020-08-09
-
-                                </p>
-
-                            </div>
-
-                            <div class="comment-text">
-
-                                Text
-
-                            </div>
+                                'options' => ['class' => '', 'role' => 'form']]) ?>
 
                             <div class="comment-delete">
 
@@ -215,9 +178,161 @@ class="btn btn-default"><?= $tag ?></a>
 
                             </div>
 
+                            <?php \yii\widgets\ActiveForm::end() ?>
+
+                        <?php endif; ?>
+
+                    </div>
+
+                </div>
+
+            <?php else: ?>
+
+                <?php if (is_int(array_search($comment->id, array_column($commentsChild, 'comment_id')))): ?>
+
+                    <div class="comment">
+
+                        <a href="#" class="comment-img">
+
+                            <img class="img-round" src="<?= $comment->user->getImage(); ?>" alt="">
+
+                        </a>
+
+                        <div class="comment-body">
+
+                            <div class="comment-top">
+
+                                <h5><?= $comment->user->name; ?></h5>
+
+                                <p class="comment-date">
+
+                                    <?= $comment->getDate(); ?>
+
+                                </p>
+
+                            </div>
+
+                            <div class="comment-text">
+
+                                Comment delete
+
+                            </div>
+
                         </div>
 
                     </div>
+
+                <?php endif; ?>
+
+            <?php endif; ?>
+
+            <div class="replay-comment" hidden>
+
+                <?php if (!Yii::$app->user->isGuest): ?>
+
+                    <?php $form = \yii\widgets\ActiveForm::begin([
+
+                        'action' => ['site/comment', 'id' => $article->id, 'id_comment' => $comment->id],
+
+                        'options' => ['class' => '', 'role' => 'form']]) ?>
+
+                    <div class="leave-comment-child"><!--leave comment-->
+
+                        <h4>Leave a reply for <?= $comment->user->name; ?></h4>
+
+                        <div class="form-group">
+
+                            <div class="col-md-12">
+
+                                <?= $form->field($commentForm, 'comment')->textarea(['class' => 'form-control', 
+'placeholder' => 'Write Message'])->label(false) ?>
+
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn send-btn">Post Comment</button>
+
+                        <?php \yii\widgets\ActiveForm::end() ?>
+
+                    </div><!--end leave comment-->
+
+                <?php endif; ?>
+
+            </div>
+
+            <div class="comment-childs-container">
+
+                <div class="comment-childs">
+
+                    <?php foreach ($commentsChild as $commentChild): ?>
+
+                        <?php if ($commentChild->comment_id == $comment->id): ?>
+
+                            <div class="comment-block">
+
+                                <div class="comment">
+
+                                    <a href="#" class="comment-img">
+
+                                        <img class="img-round" src="<?= $commentChild->user->getImage(); ?>"
+
+                                             alt="">
+
+                                    </a>
+
+                                    <div class="comment-body">
+
+                                        <div class="comment-top">
+
+                                            <h5><?= $commentChild->user->name; ?></h5>
+
+                                            <p class="comment-date">
+
+                                                <?= $commentChild->getDate(); ?>
+
+                                            </p>
+
+                                        </div>
+
+                                        <div class="comment-text">
+
+                                            <?= $commentChild->text; ?>
+
+                                        </div>
+
+                                        <?php if ($commentChild->user_id == Yii::$app->user->id): ?>
+
+                                            <?php $form = \yii\widgets\ActiveForm::begin([
+
+                                                'action' => ['site/comment-delete', 'id' => $article->id, 
+'id_comment' => $commentChild->id],
+
+                                                'options' => ['class' => '', 'role' => 'form']]) ?>
+
+                                            <div class="comment-delete">
+
+                                                <button type="submit">
+
+                                                    <i class="fa fa-trash"></i>
+
+                                                </button>
+
+                                            </div>
+
+                                            <?php \yii\widgets\ActiveForm::end() ?>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        <?php endif; ?>
+
+                    <?php endforeach; ?>
 
                 </div>
 
@@ -225,10 +340,28 @@ class="btn btn-default"><?= $tag ?></a>
 
         </div>
 
-    </div>
+    <?php endforeach; ?>
 
 </div>
+
+<?php endif; ?>
 
 </div>
 
 <?php echo \Yii::$app->view->renderFile('@app/views/site/right.php', compact('popular','recent','topics'));?>
+
+<script>
+
+    function ShowReplay(button) {
+
+        var comment = button.parentElement.parentElement.parentElement.parentElement;
+
+        var repl = comment.getElementsByClassName('replay-comment')[0];
+
+        repl.hidden = !repl.hidden;
+
+        console.log(repl);
+
+    }
+
+</script>

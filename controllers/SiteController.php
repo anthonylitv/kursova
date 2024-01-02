@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Topic;
+use app\models\Comment;
+use app\models\CommentForm;
 
 class SiteController extends Controller
 {
@@ -96,11 +98,14 @@ class SiteController extends Controller
         'articles'=>$articles,
 
         'pagination'=>$pagination,
+
         'popular' => $popular,
 
-'recent' => $recent,
+        'recent' => $recent,
 
-'topics' => $topics
+        'topics' => $topics,
+
+
 
     ]);
 
@@ -150,6 +155,22 @@ class SiteController extends Controller
         
         $topics = Topic::find()->all();
         
+        $comments = $article->comments;
+
+        $commentsParent = array_filter($comments, function ($k) {
+        
+            return $k['comment_id'] == null;
+        
+        });
+        
+        $commentsChild = array_filter($comments, function ($k) {
+        
+            return ($k['comment_id'] != null && !$k['delete']);
+        
+        });
+        
+        $commentForm = new CommentForm();
+
         return $this->render('single', [
         
         'article' => $article,
@@ -159,6 +180,12 @@ class SiteController extends Controller
         'recent' => $recent,
         
         'topics' => $topics,
+
+        'commentsParent' => $commentsParent,
+
+        'commentsChild' => $commentsChild,
+
+        'commentForm' => $commentForm,
         
         ]);
     }
@@ -207,4 +234,45 @@ class SiteController extends Controller
     ]);
 
 }
+
+public function actionComment($id, $id_comment = null)
+{
+
+    $model = new CommentForm();
+
+    if (Yii::$app->request->isPost) {
+
+        $model->load(Yii::$app->request->post());
+
+        if ($model->saveComment($id, $id_comment)) {
+
+            return $this->redirect(['site/view', 'id' => $id]);
+
+        }
+
+    }
+
+}
+
+public function actionCommentDelete($id, $id_comment)
+{
+
+    if (Yii::$app->request->isPost) {
+
+        $data = Comment::findOne($id_comment);
+
+        if ($data->user_id == Yii::$app->user->id) {
+
+            $data->delete = true;
+
+            $data->save(false);
+
+        }
+
+        return $this->redirect(['site/view', 'id' => $id]);
+
+    }
+
+}
+
 }
