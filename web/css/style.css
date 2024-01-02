@@ -422,3 +422,51 @@ input {
     font-size: 12px;
     color: #666;
 }
+
+/*! Header.php!*/ /*! Header.php!*/ /*! Header.php!*/ /*! Header.php!*/ /*! Header.php!*/
+/*! Header.php!*/ /*! Header.php!*/ /*! Header.php!*/ /*! Header.php!*/ /*! Header.php!*/
+#header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.navbar {
+    padding: 0.7rem 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #555;
+    font-size: 1.1em;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: #007bff;
+}
+
+.nav-item .logout {
+    color: #007bff;
+    border: none;
+    background-color: transparent;
+    padding: 0.5rem 0.75rem;
+    margin-left: 0.5rem;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-item .logout:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav {
+        margin-top: 15px;
+    }
+}

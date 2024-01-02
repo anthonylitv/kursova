@@ -34,28 +34,33 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     NavBar::begin([
         'brandLabel' => 'Travel',
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        'options' => [
+            'class' => 'navbar navbar-expand-lg navbar-light bg-light shadow-sm'
+        ],
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
+        'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'User', 'url' => ['/user/user']],
             ['label' => 'Article', 'url' => ['/user/article']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/auth/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/auth/logout'])
+            Yii::$app->user->isGuest ? 
+                ['label' => 'Login', 'url' => ['/auth/login']] : 
+                '<li class="nav-item">'
+                    . Html::beginForm(['/auth/logout'], 'post', ['class' => 'form-inline'])
                     . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
+                        'Logout (' . Html::encode(Yii::$app->user->identity->username) . ')',
+                        ['class' => 'btn btn-outline-secondary logout']
                     )
                     . Html::endForm()
                     . '</li>'
-        ]
+        ],
     ]);
     NavBar::end();
     ?>
+</header>
+
+
 
     <div class="container">
         <!--main content start-->
