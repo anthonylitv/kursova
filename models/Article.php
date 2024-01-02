@@ -138,4 +138,10 @@ class Article extends \yii\db\ActiveRecord
         return '/no-image.png';
     }
 
+    public function getDate(){
+
+        return Yii::$app->formatter->asDate($this->date);
+        
+        }
+
 }

@@ -1,16 +1,20 @@
 <?php
 
+use yii\helpers\Url;
+
 /** @var yii\web\View $this */
 
 $this->title = 'My Yii Application';
 ?>
 <div class="col-md-8">
 
-<article class="post">
+<?php foreach ($articles as $article): ?>
+    <article class="post">
+
 
     <div class="post-thumb">
 
-        <a href=""><img class="img-index" src="" alt="Image"></a>
+    <a href=""><img class="img-index" src="<?= $article->getImage() ?> " alt="Image"></a>
 
     </div>
 
@@ -18,23 +22,19 @@ $this->title = 'My Yii Application';
 
         <header class="entry-header text-center text-uppercase">
 
-            <h6><a href=""> Travel</a></h6>
+            <h6><a href=""> <?= $article->topic->name; ?></a></h6>
 
-            <h1 class="entry-title"><a href=""> Home is peaceful place </a></h1>
+            <h1 class="entry-title"><a href=""> <?= $article->title; ?> </a></h1>
 
         </header>
 
         <div class="entry-content">
 
-            <p>
-
-                Text
-
-            </p>
+        <p> <?= mb_strimwidth($article->description,0, 360, "..."); ?> </p>
 
             <div class="btn-continue-reading text-center text-uppercase">
 
-                <a href="#" class="more-link">Continue Reading</a>
+            <a href="<?= Url::toRoute(['/view', 'id'=>$article->id]) ?>" class="more-link">Continue Reading</a>
 
             </div>
 
@@ -42,13 +42,13 @@ $this->title = 'My Yii Application';
 
         <div class="social-share">
 
-            <span class="social-share-title pull-left text-capitalize">By Stas On 20-02-12</span>
+            <span class="social-share-title pull-left text-capitalize">By <?= $article->user->name;?> On <?= $article->getDate();?></span>
 
             <ul class="text-center pull-right">
 
                 <li><a class="s-facebook" href="#"><i class="fa fa-eye"></i></a></li>
 
-                10
+                <?= (int)$article->viewed; ?>
 
             </ul>
 
@@ -57,20 +57,12 @@ $this->title = 'My Yii Application';
     </div>
 
 </article>
+<?php endforeach; 
+echo \yii\widgets\LinkPager::widget([
+        "pagination" => $pagination,
+    ])
+?>
 
-<ul class="pagination">
-
-    <li class="active"><a href="#">1</a></li>
-
-    <li><a href="#">2</a></li>
-
-    <li><a href="#">3</a></li>
-
-</ul>
 
 </div>
-<?php
-
-echo \Yii::$app->view->renderFile('@app/views/site/right.php');
-
-?>
+<?php echo \Yii::$app->view->renderFile('@app/views/site/right.php', compact('popular','recent','topics'));?>

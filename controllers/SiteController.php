@@ -1,7 +1,8 @@
 <?php
 
 namespace app\controllers;
-
+use app\models\Article;
+use yii\data\Pagination;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,6 +10,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Topic;
 
 class SiteController extends Controller
 {
@@ -60,9 +62,51 @@ class SiteController extends Controller
      * @return string
      */
     public function actionIndex()
-    {
-        return $this->render('index');
-    }
+
+{
+
+// build a DB query to get all articles
+
+    $query = Article::find();
+
+// get the total number of articles (but do not fetch the article data yet)
+
+    $count = $query->count();
+
+// create a pagination object with the total count
+
+    $pagination = new Pagination(['totalCount' => $count, 'pageSize'=> 1]);
+
+// limit the query using the pagination and retrieve the articles
+
+    $articles = $query->offset($pagination->offset)
+
+        ->limit($pagination->limit)
+
+        ->all();
+
+        $popular = Article::find()->orderBy('viewed desc')->limit(3)->all();
+
+        $recent = Article::find()->orderBy('date desc')->limit(3)->all();
+        
+        $topics = Topic::find()->all();
+
+    return $this->render('index',[
+
+        'articles'=>$articles,
+
+        'pagination'=>$pagination,
+        'popular' => $popular,
+
+'recent' => $recent,
+
+'topics' => $topics
+
+    ]);
+
+    
+
+}
 
     /**
      * Login action.
